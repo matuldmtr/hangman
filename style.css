@@ -1,0 +1,132 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100svh;
+
+  background-color: #1592ec;
+}
+
+/*  Modal */
+.modal {
+  background-color: #ffffff;
+  padding: 5em 7em;
+  border-radius: 0.8em;
+}
+
+.modal button {
+  padding: 1em 1.5em;
+  border-radius: 0.7em;
+  border: none;
+  font-size: 1em;
+  background-color: #1592ec;
+  color: #ffffff;
+  transition: background-color 0.3s ease-in-out;
+
+  cursor: pointer;
+}
+
+.modal button:hover {
+  background-color: #1592ecb9;
+}
+
+/* Game field */
+.container {
+  display: flex;
+  align-items: flex-end;
+  gap: 5em;
+
+  padding: 3em 2em;
+  border-radius: 1em;
+  background-color: #ffffff;
+}
+
+.hangman-box {
+  font-size: 0.8em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.hangman-box img {
+  max-width: 270px;
+}
+
+.hangman-box h1 {
+  margin-top: 1em;
+}
+
+.word {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8em;
+  list-style: none;
+  margin-bottom: 2em;
+}
+
+.word-letter {
+  width: 1.5em;
+  font-size: 1.2em;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  border-bottom: 3px solid black;
+}
+
+.word-letter.guessed {
+  border-color: transparent;
+  margin: -0.4em 0 0.4em;
+}
+
+.game-box h4 {
+  font-size: 1em;
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.game-box h4 b {
+  font-weight: 700;
+}
+
+.game-box .hint b {
+  color: blueviolet;
+}
+
+.game-box .guesses b {
+  color: red;
+}
+
+.keyboard {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 2em;
+}
+
+.keyboard button {
+  width: calc(100% / 9);
+
+  font-size: 1em;
+  font-weight: 700;
+  text-transform: uppercase;
+
+  color: #ffffff;
+  background-color: #1592ec;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.keyboard button:hover {
+  background-color: #1592ecb9;
+}
