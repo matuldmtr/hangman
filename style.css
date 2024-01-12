@@ -73,7 +73,7 @@ body {
 
 .word-letter {
   width: 1.5em;
-  font-size: 1.2em;
+  font-size: 1.3em;
   font-weight: 700;
   text-transform: uppercase;
   text-align: center;
@@ -125,9 +125,14 @@ body {
   border-radius: 5px;
   outline: none;
   cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .keyboard button:hover {
   background-color: #1592ecb9;
+}
+
+.keyboard button:disabled {
+ opacity: 0.6;
+ pointer-events: none;
 }
