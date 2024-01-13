@@ -1,15 +1,16 @@
 import wordsList from "./words-list.json" assert { type: "json" };
 
-let currentWord,
-  wrongGuessCount = 0;
+let currentWord;
+let wrongGuessCount = 0;
 const maxGuesses = 6;
+let correctLetters = [];
 
 const showStartModal = () => {
   const body = document.querySelector("body");
 
-  body.innerHTML = `
+  body.innerHTML += `
     <div class="modal">
-      <button id="start">Start Game</button>
+      <button id="start" class="modal-btn">Start Game</button>
     </div>`;
 };
 
@@ -22,7 +23,6 @@ const init = () => {
   startBtn.addEventListener("click", hideModal);
   startBtn.addEventListener("click", showMainContent);
   startBtn.addEventListener("click", generateKeybord);
-  startBtn.addEventListener("click", generateRandomWord);
   startBtn.addEventListener("click", startGame);
 };
 
@@ -48,6 +48,15 @@ const showMainContent = () => {
       </h4>
       <h4 class="guesses">Incorect guesses: <b>0 / 6</b></h4>
       <div class="keyboard"></div>
+    </div>
+
+    <div class="modal-finish hide">
+      <div class="modal-wrap">
+        <img src="images/loss.gif" alt="" />
+        <h4>Game Over!</h4>
+        <p>The correct word was: <b>kurwa</b></p>
+        <button id="play-again" class="modal-btn">Play again</button>
+      </div>
     </div>
   </div>
   `;
@@ -80,19 +89,39 @@ const generateRandomWord = () => {
   currentWord = word.toLocaleLowerCase();
 };
 
+const restartGame = () => {
+  const modal = document.querySelector(".modal-finish");
+  const hungmanImage = document.querySelector(".hangman-box img");
+  const guessesText = document.querySelector(".guesses b");
+  const keybordBtns = document.querySelectorAll(".keyboard button");
+
+  modal.classList.add("hide");
+  wrongGuessCount = 0;
+  correctLetters = [];
+  hungmanImage.src = `images/hangman-${wrongGuessCount}.svg`;
+  guessesText.innerText = `${wrongGuessCount} / ${maxGuesses}`;
+  keybordBtns.forEach((btn) => (btn.disabled = false));
+};
+
 const startGame = () => {
   const keybordBtns = document.querySelectorAll(".keyboard button");
   const wordText = document.querySelector(".word");
   const guessesText = document.querySelector(".guesses b");
   const hungmanImage = document.querySelector(".hangman-box img");
 
+  generateRandomWord();
+  restartGame();
+
   keybordBtns.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       let currentLetter = e.target.value;
 
+      console.log(wrongGuessCount, correctLetters);
+
       if (currentWord.includes(currentLetter)) {
         [...currentWord].forEach((letter, index) => {
           if (letter === currentLetter) {
+            correctLetters.push(letter);
             wordText.querySelectorAll("li")[index].innerText = letter;
             wordText.querySelectorAll("li")[index].classList.add("guessed");
           }
@@ -103,6 +132,32 @@ const startGame = () => {
       }
       btn.disabled = true;
       guessesText.innerText = `${wrongGuessCount} / ${maxGuesses}`;
+
+      if (wrongGuessCount === maxGuesses) return gameOver(false);
+      if (correctLetters.length === currentWord.length) return gameOver(true);
     });
   });
+};
+
+const gameOver = (isWin) => {
+  const modal = document.querySelector(".modal-finish");
+  const madalImg = document.querySelector(".modal-wrap img");
+  const title = document.querySelector(".modal-wrap h4");
+  const text = document.querySelector(".modal-wrap p");
+  // const playAgainBtn = document.getElementById("play-again");
+
+  const modalImgSrc = isWin ? "images/win.gif" : "images/loss.gif";
+  const titleText = isWin ? "Congratulations , you win!!" : "Sorry, you loss!!";
+  const modalText = isWin ? "You found the word:" : "The correct word was:";
+
+  setTimeout(() => {
+    modal.classList.remove("hide");
+    madalImg.src = modalImgSrc;
+    title.innerText = titleText;
+    text.innerHTML = `${modalText} <b>${currentWord}</b>`;
+  }, 300);
+
+  // playAgainBtn.addEventListener("click", () => {
+  //   startGame();
+  // });
 };
