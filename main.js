@@ -10,6 +10,7 @@ const showStartModal = () => {
 
   body.innerHTML += `
     <div class="modal">
+      <h4>Hungman</h4>
       <button id="start" class="modal-btn">Start Game</button>
     </div>`;
 };
@@ -20,10 +21,13 @@ window.addEventListener("load", showStartModal);
 
 const init = () => {
   const startBtn = document.getElementById("start");
-  startBtn.addEventListener("click", hideModal);
-  startBtn.addEventListener("click", showMainContent);
-  startBtn.addEventListener("click", generateKeybord);
-  startBtn.addEventListener("click", startGame);
+  startBtn.addEventListener("click", () => {
+    hideModal();
+    showMainContent();
+    generateKeybord();
+    startGame();
+    // playAgain();
+  });
 };
 
 window.addEventListener("load", init);
@@ -86,7 +90,7 @@ const generateRandomWord = () => {
 
   hintText.innerText = hint;
 
-  currentWord = word.toLocaleLowerCase();
+  currentWord = word.toLowerCase();
 };
 
 const restartGame = () => {
@@ -109,14 +113,13 @@ const startGame = () => {
   const guessesText = document.querySelector(".guesses b");
   const hungmanImage = document.querySelector(".hangman-box img");
 
-  generateRandomWord();
   restartGame();
+  generateRandomWord();
 
   keybordBtns.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       let currentLetter = e.target.value;
-
-      console.log(wrongGuessCount, correctLetters);
+      console.log(correctLetters, wrongGuessCount);
 
       if (currentWord.includes(currentLetter)) {
         [...currentWord].forEach((letter, index) => {
@@ -144,7 +147,6 @@ const gameOver = (isWin) => {
   const madalImg = document.querySelector(".modal-wrap img");
   const title = document.querySelector(".modal-wrap h4");
   const text = document.querySelector(".modal-wrap p");
-  // const playAgainBtn = document.getElementById("play-again");
 
   const modalImgSrc = isWin ? "images/win.gif" : "images/loss.gif";
   const titleText = isWin ? "Congratulations , you win!!" : "Sorry, you loss!!";
@@ -156,8 +158,9 @@ const gameOver = (isWin) => {
     title.innerText = titleText;
     text.innerHTML = `${modalText} <b>${currentWord}</b>`;
   }, 300);
+};
 
-  // playAgainBtn.addEventListener("click", () => {
-  //   startGame();
-  // });
+const playAgain = () => {
+  const playAgainBtn = document.getElementById("play-again");
+  playAgainBtn.addEventListener("click", () => startGame());
 };
