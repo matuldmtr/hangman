@@ -1,6 +1,7 @@
 * {
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
 
@@ -21,13 +22,18 @@ body {
   text-align: center;
 }
 
+@media screen and (max-width: 500px) {
+  .modal {
+    padding: 3em 5em;
+  }
+}
+
 .modal h4 {
   font-size: 2.3em;
   font-weight: 700;
   margin-bottom: 1em;
   color: #1592ec;
 }
-
 
 .modal-btn {
   padding: 0.8em 1.6em;
@@ -48,9 +54,12 @@ body {
 /* Game field */
 .container {
   display: flex;
-  align-items: flex-end;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
   gap: 5em;
 
+  max-width: 60em;
   margin: 1em;
   padding: 3em 2em;
   border-radius: 1em;

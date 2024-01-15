@@ -2,8 +2,8 @@ import wordsList from "./words-list.json" assert { type: "json" };
 
 let currentWord;
 let wrongGuessCount = 0;
-const maxGuesses = 6;
 let correctLetters = [];
+const maxGuesses = 6;
 
 const showStartModal = () => {
   const body = document.querySelector("body");
@@ -26,7 +26,7 @@ const init = () => {
     showMainContent();
     generateKeybord();
     startGame();
-    // playAgain();
+    playAgain();
   });
 };
 
@@ -56,9 +56,9 @@ const showMainContent = () => {
 
     <div class="modal-finish hide">
       <div class="modal-wrap">
-        <img src="images/loss.gif" alt="" />
-        <h4>Game Over!</h4>
-        <p>The correct word was: <b>kurwa</b></p>
+        <img src="" alt="" />
+        <h4></h4>
+        <p><b></b></p>
         <button id="play-again" class="modal-btn">Play again</button>
       </div>
     </div>
@@ -119,7 +119,6 @@ const startGame = () => {
   keybordBtns.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       let currentLetter = e.target.value;
-      console.log(correctLetters, wrongGuessCount);
 
       if (currentWord.includes(currentLetter)) {
         [...currentWord].forEach((letter, index) => {
@@ -162,5 +161,9 @@ const gameOver = (isWin) => {
 
 const playAgain = () => {
   const playAgainBtn = document.getElementById("play-again");
-  playAgainBtn.addEventListener("click", () => startGame());
+  playAgainBtn.addEventListener("click", startGame);
 };
+
+console.log(
+  "функция playAgain работает некорректно. Помогите, плиз, найти ошибку"
+);
